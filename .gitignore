@@ -1,0 +1,12 @@
+# build-ignores
+# please add any ignores for YOUR build system
+cmakefiles/
+_deps/
+makefile
+cmakecache.txt
+*.cmake
+compile_commands.json
+
+# ide-ignores
+# same rule above applies here
+.vscode/

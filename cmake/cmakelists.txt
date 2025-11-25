@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(PROJECT "csand")
+project(${PROJECT})
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+set(RAYLIB_VERSION 5.5)
+find_package(raylib ${RAYLIB_VERSION} QUIET)
+if (NOT raylib_FOUND)
+  include(FetchContent)
+  FetchContent_Declare(
+    raylib
+    DOWNLOAD_EXTRACT_TIMESTAMP OFF
+    URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
+  )
+  FetchContent_GetProperties(raylib)
+  if (NOT raylib_POPULATED)
+    set(FETCHCONTENT_QUIET)
+    FetchContent_MakeAvailable(raylib)
+  endif()
+endif()
+
+add_executable(${PROJECT} "../src/csand.cc")
+
+target_link_libraries(${PROJECT} PRIVATE raylib)
+if (MSVC)
+  target_compile_options(${PROJECT} PRIVATE /W4)
+else()
+  target_compile_options(${PROJECT} PRIVATE -Wall -Wextra -pedantic)
+endif()
