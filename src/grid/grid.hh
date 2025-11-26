@@ -28,9 +28,11 @@ typedef struct grid_Grid {
   Color get_color(int ELEM_TYPE) {
     switch(ELEM_TYPE) {
       case(ELEM_NONE):
-        return BLACK;
+        return ELEM_NONE_COLOR;
       case(ELEM_SAND):
-        return elem_Sand::color;
+        return ELEM_SAND_COLOR;
+      case(ELEM_WALL):
+        return ELEM_WALL_COLOR;
     }
   };
 } grid_Grid;
