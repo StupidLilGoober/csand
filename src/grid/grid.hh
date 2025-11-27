@@ -2,9 +2,9 @@
 #include "../csand.hh"
 #include "../elem/elem.hh"
 
-#define GRID_WIDTH 640
-#define GRID_HEIGHT 480
-#define GRID_CELL_PX_SIZE 15
+#define GRID_WIDTH 620
+#define GRID_HEIGHT 360
+#define GRID_CELL_PX_SIZE 2
 
 typedef struct grid_Grid {
   int cell[GRID_WIDTH][GRID_HEIGHT]; // The grid itself. Represented using `cell[x][y]` for simplicity.
@@ -20,10 +20,31 @@ typedef struct grid_Grid {
   void draw() {
     for (int x = 0; x < GRID_WIDTH; x++) {
       for (int y = 0; y < GRID_HEIGHT; y++) {
-        DrawRectangle(GRID_CELL_PX_SIZE * x, GRID_CELL_PX_SIZE * y, GRID_CELL_PX_SIZE, GRID_CELL_PX_SIZE, get_color(cell[x][y]));
+        if (cell[x][y] != ELEM_NONE) {
+          DrawRectangle(GRID_CELL_PX_SIZE * x, GRID_CELL_PX_SIZE * y, GRID_CELL_PX_SIZE, GRID_CELL_PX_SIZE, get_color(cell[x][y]));
+        }
       }
     }
   };
+
+  void check_elem(int x, int y) {
+    switch(cell[x][y]) {
+      case(ELEM_NONE):
+        return;
+      case(ELEM_SAND):
+        elem_SandPhysics(cell, x, y);
+      case(ELEM_WALL):
+        return;
+    }
+  }
+
+  void update() {
+    for (int x = 0; x < GRID_WIDTH; x++) {
+      for (int y = GRID_HEIGHT; y >= 0; y--) {
+        check_elem(x, y);
+      }
+    }
+  }
 
   Color get_color(int ELEM_TYPE) {
     switch(ELEM_TYPE) {

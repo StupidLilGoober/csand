@@ -9,11 +9,18 @@
 #define ELEM_NONE_COLOR BLACK
 #define ELEM_WALL_COLOR GRAY
 
-#define GRID_WIDTH 640
-#define GRID_HEIGHT 480
+#define GRID_WIDTH 620
+#define GRID_HEIGHT 360
+
+int elem_CurrentElem = ELEM_SAND;
 
 /* The function used by dust-like elements, and of course `sand` */
-void elem_SandPhysics(int cell[GRID_WIDTH][GRID_HEIGHT], int x, int y) {
+void elem_SandPhysics(int cell[GRID_WIDTH][GRID_HEIGHT], int x, int y) {\
+  // ensure that the sand doesn't fall off screen
+  if ((y + 1) == GRID_HEIGHT) {
+    return;
+  }
+  // main logic
   if (cell[x][y + 1] == ELEM_NONE) {
     cell[x][y + 1] = cell[x][y]; // place element below
     cell[x][y] = ELEM_NONE;      // remove current element

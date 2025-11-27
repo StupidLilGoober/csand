@@ -10,3 +10,7 @@ compile_commands.json
 # ide-ignores
 # same rule above applies here
 .vscode/
+
+# misc ignores
+# this folder is saved as readme(s).tar.gz, so having it is redundant
+readme(s)/
