@@ -15,6 +15,12 @@ void tool_UseErase(int x, int y, int cell[GRID_WIDTH][GRID_HEIGHT]) {
   cell[x][y] = ELEM_NONE;
 }
 
+void tool_UseSpray(int x, int y, int cell[GRID_WIDTH][GRID_HEIGHT]) {
+  int x_ran = GetRandomValue(-5, 5);
+  int y_ran = GetRandomValue(-5, 5);
+  cell[x + x_ran][y + y_ran] = elem_CurrentElem;
+}
+
 void tool_UseTool(int x, int y, int cell[GRID_WIDTH][GRID_HEIGHT]) {
   switch(tool_CurrentTool) {
     case(TOOL_PENCIL):
@@ -23,5 +29,7 @@ void tool_UseTool(int x, int y, int cell[GRID_WIDTH][GRID_HEIGHT]) {
     case(TOOL_ERASER):
       tool_UseErase(x, y, cell);
       break;
+    case(TOOL_SPRAY):
+      tool_UseSpray(x, y, cell);
   }
 }

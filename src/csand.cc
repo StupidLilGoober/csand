@@ -10,6 +10,14 @@ void HandleTools(Vector2 MousePos, int cell[GRID_WIDTH][GRID_HEIGHT]) {
   } else if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
     tool_UseErase((int)MousePos.x / GRID_CELL_PX_SIZE, (int)MousePos.y / GRID_CELL_PX_SIZE, cell);
   }
+
+  if (IsKeyPressed(KEY_P)) {
+    tool_CurrentTool = TOOL_PENCIL;
+  } else if (IsKeyPressed(KEY_E)) {
+    tool_CurrentTool = TOOL_ERASER;
+  } else if (IsKeyPressed(KEY_S)) {
+    tool_CurrentTool = TOOL_SPRAY;
+  }
 }
 
 void HandleMiscInputs() {
@@ -54,7 +62,7 @@ int main() {
     BeginDrawing();
       grid->draw();
       std::string message = std::to_string(GetFPS()) + " FPS";
-      DrawText(message.c_str(), 5, 5, 5, WHITE);
+      DrawText(message.c_str(), 5, 5, 8, WHITE);
     EndDrawing();
 
     // input

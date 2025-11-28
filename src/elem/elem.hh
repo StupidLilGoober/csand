@@ -91,7 +91,7 @@ void elem_AcidPhysics(int cell[GRID_WIDTH][GRID_HEIGHT], int x, int y) {
   }
 
   // 'disperse' logic
-  if (cell[x - 1][y] == ELEM_NONE && cell[x + 1][y] == ELEM_NONE) {
+  if (cell[x - 1][y] != ELEM_ACID && cell[x + 1][y] == ELEM_ACID) {
     int mod = GetRandomValue(-1 * ELEM_ACID_DISPERSITY, ELEM_ACID_DISPERSITY);
     if (cell[x + mod][y] == ELEM_NONE) {
       cell[x + mod][y] = cell[x][y];
