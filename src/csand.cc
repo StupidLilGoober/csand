@@ -45,6 +45,8 @@ void HandleCommandInputs(int cell[GRID_WIDTH][GRID_HEIGHT]) {
 int main() {
   InitWindow(1240, 720, "csand");
   SetTargetFPS(100); // ticks per second
+  ToggleBorderlessWindowed();
+  ScaleSize = GetScaleSize();
 
   Image logo = LoadImage("assets/logo.png");
   SetWindowIcon(logo);
@@ -62,7 +64,7 @@ int main() {
     BeginDrawing();
       grid->draw();
       std::string message = std::to_string(GetFPS()) + " FPS";
-      DrawText(message.c_str(), 5, 5, 8, WHITE);
+      DrawText(message.c_str(), 5, 5, 8 * (int)ScaleSize, WHITE);
     EndDrawing();
 
     // input

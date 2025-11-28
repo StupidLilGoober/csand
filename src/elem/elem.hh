@@ -74,26 +74,33 @@ void elem_WaterPhysics(int cell[GRID_WIDTH][GRID_HEIGHT], int x, int y) {
 }
 
 void elem_AcidPhysics(int cell[GRID_WIDTH][GRID_HEIGHT], int x, int y) {
+  // 'disappear' logic
+  float death_roll = (float)GetRandomValue(0, 100) / 100.0f;
+  if (death_roll > 0.99) {
+    cell[x][y] = ELEM_NONE;
+    return;
+  }
+
   // ensure that the water doesn't fall off screen
   if ((y + 1) == GRID_HEIGHT) {
     return;
   }
   // main logic
-  if (cell[x][y + 1] == ELEM_NONE) {
+  if (cell[x][y + 1] != ELEM_ACID) {
     cell[x][y + 1] = cell[x][y]; // place element below
     cell[x][y] = ELEM_NONE;      // remove current element
-  } else if (cell[x - 1][y + 1] == ELEM_NONE) {
+  } else if (cell[x - 1][y + 1] != ELEM_ACID) {
     cell[x - 1][y + 1] = cell[x][y];
     cell[x][y] = ELEM_NONE;
-  } else if (cell[x + 1][y + 1] == ELEM_NONE) {
+  } else if (cell[x + 1][y + 1] != ELEM_ACID) {
     cell[x + 1][y + 1] = cell[x][y];
     cell[x][y] = 0;
   }
 
   // 'disperse' logic
-  if (cell[x - 1][y] != ELEM_ACID && cell[x + 1][y] == ELEM_ACID) {
+  if (cell[x - 1][y] != ELEM_ACID && cell[x + 1][y] != ELEM_ACID) {
     int mod = GetRandomValue(-1 * ELEM_ACID_DISPERSITY, ELEM_ACID_DISPERSITY);
-    if (cell[x + mod][y] == ELEM_NONE) {
+    if (cell[x + mod][y] != ELEM_ACID) {
       cell[x + mod][y] = cell[x][y];
       cell[x][y] = ELEM_NONE;
     }
