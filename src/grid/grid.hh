@@ -21,7 +21,7 @@ typedef struct grid_Grid {
     for (int x = 0; x < GRID_WIDTH; x++) {
       for (int y = 0; y < GRID_HEIGHT; y++) {
         if (cell[x][y] != ELEM_NONE) {
-          DrawRectangle(GRID_CELL_PX_SIZE * x * GetScaleSize(), GRID_CELL_PX_SIZE * y * GetScaleSize(), GRID_CELL_PX_SIZE * GetScaleSize(), GRID_CELL_PX_SIZE * GetScaleSize(), get_color(cell[x][y]));
+          DrawRectangle(GRID_CELL_PX_SIZE * x, GRID_CELL_PX_SIZE * y, GRID_CELL_PX_SIZE, GRID_CELL_PX_SIZE, get_color(cell[x][y]));
         }
       }
     }
