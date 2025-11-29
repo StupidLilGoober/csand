@@ -59,6 +59,8 @@ int main() {
   grid_Grid *grid = new grid_Grid;
   grid->setup();
 
+  LoadGame("example");
+
   while (WindowShouldClose() == false) {
     ClearBackground(BLACK);
     grid->update();
